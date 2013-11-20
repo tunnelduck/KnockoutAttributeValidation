@@ -5,19 +5,19 @@
     <table>
         <tr>
             <td>Email</td>
-            <td><input data-bind="value: vm.EmailAddress" type="text"/></td>
+            <td><input data-bind="value: vm.EmailAddress, valueUpdate: 'blur'" type="text"/></td>
         </tr>
         <tr>
             <td>Confirm Email</td>
-            <td><input data-bind="value: vm.ConfirmEmailAddress" type="text"/></td>
+            <td><input data-bind="value: vm.ConfirmEmailAddress, valueUpdate: 'blur'" type="text"/></td>
         </tr>
         <tr>
             <td>Name</td>
-            <td><input data-bind="value: vm.Name" type="text"/></td>
+            <td><input data-bind="value: vm.Name, valueUpdate: 'blur'" type="text"/></td>
         </tr>
         <tr>
             <td>Address1</td>
-            <td><input data-bind="value: vm.Address.Address1" type="text"/></td>
+            <td><input data-bind="value: vm.Address.Address1, valueUpdate: 'blur'" type="text"/></td>
         </tr>
     </table>
     

@@ -10,16 +10,16 @@
 
         var validationExtenders = {
             Required: function (model, propertyName, validator) {
-                model[propertyName].extend({ required: true, message: validator.ErrorMessage });
+                model[propertyName].extend({ required: { message: validator.ErrorMessage } });
             },
             MinLength: function (model, propertyName, validator) {
-                model[propertyName].extend({ minLength: validator.Length, message: validator.ErrorMessage });
+                model[propertyName].extend({ minLength: { params: validator.Length, message: validator.ErrorMessage } });
             },
             MaxLength: function (model, propertyName, validator) {
-                model[propertyName].extend({ maxLength: validator.Length, message: validator.ErrorMessage });
+                model[propertyName].extend({ maxLength: { params: validator.Length, message: validator.ErrorMessage } });
             },
             RegularExpression: function (model, propertyName, validator) {
-                model[propertyName].extend({ pattern: validator.Pattern });
+                model[propertyName].extend({ pattern: { params: validator.Pattern, message: validator.ErrorMessage } });
             },
             Compare: function (model, propertyName, validator) {
 
@@ -32,7 +32,7 @@
                 }
 
                 if (typeof compareProperty !== 'undefined') {
-                    model[propertyName].extend({ equal: compareProperty });
+                    model[propertyName].extend({ equal: { params: compareProperty, message: validator.ErrorMessage } });
                 }
             }
         };
@@ -63,7 +63,7 @@
             var prop;
             for (prop in model) {
                 var propertyValidation = validationModel.PropertyValidators[prop];
-                if (propertyValidation === undefined) {
+                if (propertyValidation == undefined) {
                     continue;
                 }
 

@@ -9,7 +9,7 @@ namespace Web.Controllers
     {
         public ActionResult Index()
         {
-            var model = new PersonDetails()
+            var model = new PersonDetailsModel()
                 {
                     Address = new Address()
                 };
@@ -29,15 +29,16 @@ namespace Web.Controllers
         public object ValidationModel { get; set; }
     }
 
-    public class PersonDetails
+    public class PersonDetailsModel
     {
-        [EmailAddress]
+        [Required(ErrorMessage = "Email address is required")]
+        [EmailAddress(ErrorMessage = "Email must be valid")]
         public string EmailAddress { get; set; }
 
-        [System.ComponentModel.DataAnnotations.Compare("EmailAddress")]
+        [System.ComponentModel.DataAnnotations.Compare("EmailAddress", ErrorMessage = "Emails must match")]
         public string ConfirmEmailAddress { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }
 
         public Address Address { get; set; }
@@ -45,7 +46,8 @@ namespace Web.Controllers
 
     public class Address
     {
-        [StringLength(10, MinimumLength = 3)]
+        [Required(ErrorMessage = "Address is required")]
+        [StringLength(10, MinimumLength = 3, ErrorMessage = "Address must be at least 3 characters and no more than 10")]
         public string Address1 { get; set; }
     }
 }
