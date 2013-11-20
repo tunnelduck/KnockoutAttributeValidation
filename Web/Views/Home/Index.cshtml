@@ -1,0 +1,65 @@
+﻿@using System.Web.Script.Serialization
+
+<div id="body">
+
+    <table>
+        <tr>
+            <td>Email</td>
+            <td><input data-bind="value: vm.EmailAddress" type="text"/></td>
+        </tr>
+        <tr>
+            <td>Confirm Email</td>
+            <td><input data-bind="value: vm.ConfirmEmailAddress" type="text"/></td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td><input data-bind="value: vm.Name" type="text"/></td>
+        </tr>
+        <tr>
+            <td>Address1</td>
+            <td><input data-bind="value: vm.Address.Address1" type="text"/></td>
+        </tr>
+    </table>
+    
+    <button data-bind="click: onClick">Submit</button>
+    <script src="~/Scripts/knockout-2.2.0.js"></script>
+    <script src="~/Scripts/knockout.validation.debug.js"></script>
+    <script src="~/Scripts/knockout.mapping-2.4.1.js"></script>
+    <script src="~/Scripts/knockout.attributeValidation.js"></script>
+    <script type="text/javascript">
+        var model = @Html.Raw(new JavaScriptSerializer().Serialize(Model.Model));
+        var validationModel = @Html.Raw(new JavaScriptSerializer().Serialize(Model.ValidationModel));
+    </script>
+    
+
+    
+    <script>
+
+        var viewModel = function() {
+
+            var self = this;
+
+            self.vm = ko.mapping.fromJS(model);
+
+            self.onClick = function() {
+                console.log(self.attributeValidation.isValid());
+            };
+
+            (function() {
+
+                ko.validation.configure({
+                    decorateElement: true
+                });
+
+                self.attributeValidation = new ko.attributeValidation({ model: self.vm, validationModel: validationModel });
+
+            })();
+        };
+        
+
+        var vm = new viewModel();
+        ko.applyBindings(vm);
+
+    </script>
+
+</div>
