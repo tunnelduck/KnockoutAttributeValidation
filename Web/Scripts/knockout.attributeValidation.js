@@ -1,8 +1,6 @@
 ﻿
 (function () {
-    ko.attributeValidation = (function (data) {
-        //data.model: the data model which has had knockout mapping run on it
-        //data.validationModel: contains all validation rules for data.model
+    ko.attributeValidation = function () {
 
         var self = this;
 
@@ -21,6 +19,15 @@
             RegularExpression: function (model, propertyName, validator) {
                 model[propertyName].extend({ pattern: { params: validator.Pattern, message: validator.ErrorMessage } });
             },
+            Range: function (model, propertyName, validator) {
+                if (validator.Minimum !== null) {
+                    model[propertyName].extend({ min: { params: validator.Minimum, message: validator.ErrorMessage } });
+                }
+                
+                if (validator.Maximum !== null) {
+                    model[propertyName].extend({ max: { params: validator.Maximum, message: validator.ErrorMessage } });
+                }
+            },
             Compare: function (model, propertyName, validator) {
 
                 var compareProperty, prop;
@@ -38,6 +45,8 @@
         };
 
         self.addValidatorExtender = function (extenderType, extender) {
+            //extenderType: string, same as what IValidator ValidatorType property is
+            //extender: function, function (model, propertyName, validator)
             validationExtenders[extenderType] = extender;
         };
 
@@ -54,7 +63,7 @@
             return true;
         };
 
-        self.applyValidation = function (model, validationModel) {
+        self.applyValidationToModel = function (model, validationModel) {
 
             if (model === undefined) {
                 return;
@@ -68,7 +77,7 @@
                 }
 
                 if (propertyValidation.ChildModel != null) {
-                    self.applyValidation(model[prop], propertyValidation.ChildModel);
+                    self.applyValidationToModel(model[prop], propertyValidation.ChildModel);
                 } else {
                     var i, isValidatorAdded = false;
 
@@ -91,17 +100,18 @@
             }
         };
 
-        (function init() {
+        self.init = function (data) {
+            //data.model: the data model which has had knockout mapping run on it
+            //data.validationModel: contains all validation rules for data.model
 
             if (typeof data.model["__ko_mapping__"] === 'undefined') {
                 window.console && console.log("model must be created from knockout mapping plugin");
             }
 
-            self.applyValidation(data.model, data.validationModel);
+            self.applyValidationToModel(data.model, data.validationModel);
             self.groupedValidation = ko.validation.group(data.model, { deep: true });
-        })();
 
-        return this;
-
-    });
+            return self;
+        };
+    };
 })();

@@ -48,6 +48,7 @@
     <Compile Include="ValidationBuilders\IValidationBuilder.cs" />
     <Compile Include="ValidationBuilders\MaxLengthValidatorBuilder.cs" />
     <Compile Include="ValidationBuilders\MinLengthValidatorBuilder.cs" />
+    <Compile Include="ValidationBuilders\RangeValidatorBuilder.cs" />
     <Compile Include="ValidationBuilders\RegularExpressionValidatorBuilder.cs" />
     <Compile Include="ValidationBuilders\RequiredValidatorBuilder.cs" />
     <Compile Include="ValidationBuilders\StringLengthValidatorBuilder.cs" />

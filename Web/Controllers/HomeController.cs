@@ -41,6 +41,9 @@ namespace Web.Controllers
         [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }
 
+        [Range(13, 100, ErrorMessage = "Age must be between 13 and 100")]
+        public int? Age { get; set; }
+
         public Address Address { get; set; }
     }
 

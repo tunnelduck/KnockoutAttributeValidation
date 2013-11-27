@@ -5,10 +5,10 @@ namespace KnockoutAttributeValidation.Validators
     {
         public string ValidatorType { get { return "Range"; } }
 
-        public int? Min { get; set; }
-
-        public int? Max { get; set; }
-
         public string ErrorMessage { get; set; }
+
+        public object Maximum { get; set; }
+
+        public object Minimum { get; set; }
     }
 }

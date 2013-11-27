@@ -27,7 +27,8 @@ namespace Web
                         new RequiredValidatorBuilder(),
                         new StringLengthValidatorBuilder(),
                         new CompareValidatorBuilder(),
-                        new EmailAddressValidatorBuilder()
+                        new EmailAddressValidatorBuilder(),
+                        new RangeValidatorBuilder()
                     }));
             });
         }
