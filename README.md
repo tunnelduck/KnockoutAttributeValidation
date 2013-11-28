@@ -41,11 +41,8 @@ var viewModel = function() {
         console.log(self.attributeValidation.isValid());
     };
 
-    (function() {
+    self.attributeValidation = new ko.attributeValidation().init({ model: self.vm, validationModel: validationModel });
 
-        self.attributeValidation = new ko.attributeValidation().init({ model: self.vm, validationModel: validationModel });
-
-    })();
 };
         
 
